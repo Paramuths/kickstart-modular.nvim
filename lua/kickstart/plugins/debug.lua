@@ -151,6 +151,7 @@ return {
     dap.adapters.lldb = {
       type = 'executable',
       command = '/opt/homebrew/opt/llvm/bin/lldb-dap',
+      name = 'lldb',
     }
 
     dap.configurations.cpp = {
@@ -164,6 +165,23 @@ return {
         cwd = '${workspaceFolder}',
         stopOnEntry = false,
         args = {},
+      },
+    }
+
+    dap.configurations.cpp = {
+      {
+        name = 'Launch file with arguments',
+        type = 'lldb',
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        args = function()
+          local args_string = vim.fn.input 'Input arguments: '
+          return vim.split(args_string, ' ')
+        end,
       },
     }
   end,
