@@ -215,7 +215,7 @@ return {
           },
         },
         gopls = {},
-        -- rust_analyzer = {},
+        rust_analyzer = {},
         pyright = {
           settings = {
             python = {
@@ -224,10 +224,10 @@ return {
           },
         },
         bashls = {},
-        jsonls = {},
+        -- jsonls = {},
         julials = {},
         texlab = {},
-        cmake = {},
+        -- cmake = {},
 
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -239,7 +239,7 @@ return {
         --
 
         lua_ls = {
-          -- cmd = { ... },
+          cmd = { 'lua-language-server', '--force_accept_workspace' },
           -- filetypes = { ... },
           -- capabilities = {},
           settings = {
@@ -272,11 +272,11 @@ return {
         'stylua', -- Used to format Lua code
         'gopls',
         'pyright',
-        'jsonls',
+        -- 'jsonls',
         'julials',
         'bashls',
         'texlab',
-        'cmake',
+        -- 'cmake',
         'isort',
         'black',
         'markdownlint',

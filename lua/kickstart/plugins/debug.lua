@@ -27,7 +27,8 @@ return {
   keys = {
     -- Basic debugging keymaps, feel free to change to your liking!
     {
-      '<F5>',
+      -- '<F5>',
+      '<leader>n',
       function()
         require('dap').continue()
       end,
@@ -77,30 +78,10 @@ return {
       desc = 'Debug: See last session result.',
     },
   },
+
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
-
-    -- Debugger for cpp
-    dap.adapters.lldb = {
-      type = 'executable',
-      command = '/opt/homebrew/opt/llvm/bin/lldb-dap',
-      name = 'lldb',
-    }
-
-    dap.configurations.cpp = {
-      {
-        name = 'Launch',
-        type = 'lldb',
-        request = 'launch',
-        program = function()
-          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-        end,
-        cwd = '${workspaceFolder}',
-        stopOnEntry = false,
-        args = {},
-      },
-    }
 
     require('mason-nvim-dap').setup {
       -- Makes a best effort to setup the various debuggers with
@@ -163,6 +144,26 @@ return {
         -- On Windows delve must be run attached or it crashes.
         -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
         detached = vim.fn.has 'win32' == 0,
+      },
+    }
+
+    -- Debugger for cpp
+    dap.adapters.lldb = {
+      type = 'executable',
+      command = '/opt/homebrew/opt/llvm/bin/lldb-dap',
+    }
+
+    dap.configurations.cpp = {
+      {
+        name = 'Launch file',
+        type = 'lldb',
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        args = {},
       },
     }
   end,
