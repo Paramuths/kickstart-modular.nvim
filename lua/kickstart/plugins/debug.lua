@@ -163,12 +163,9 @@ return {
           return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
         end,
         cwd = '${workspaceFolder}',
-        stopOnEntry = false,
+        stopOnEntry = true,
         args = {},
       },
-    }
-
-    dap.configurations.cpp = {
       {
         name = 'Launch file with arguments',
         type = 'lldb',
@@ -177,7 +174,7 @@ return {
           return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
         end,
         cwd = '${workspaceFolder}',
-        stopOnEntry = false,
+        stopOnEntry = true,
         args = function()
           local args_string = vim.fn.input 'Input arguments: '
           return vim.split(args_string, ' ')
