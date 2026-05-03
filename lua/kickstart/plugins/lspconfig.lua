@@ -122,10 +122,24 @@ return {
       --  See `:help lsp-config` for information about keys and how to configure
       ---@type table<string, vim.lsp.Config>
       local servers = {
-        -- clangd = {},
+        clangd = {
+          cmd = {
+            '/opt/homebrew/opt/llvm/bin/clangd',
+          },
+        },
         -- gopls = {},
-        -- pyright = {},
+        pyright = {
+          settings = {
+            python = {
+              pythonPath = vim.fn.exepath 'python',
+            },
+          },
+        },
         -- rust_analyzer = {},
+        bashls = {},
+        texlab = {
+          filetypes = { 'tex' },
+        },
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
         --    https://github.com/pmizio/typescript-tools.nvim
@@ -180,6 +194,10 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         -- You can add other tools here that you want Mason to install
+        'isort',
+        'black',
+        'markdownlint',
+        'shellharden',
       })
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -188,6 +206,11 @@ return {
         vim.lsp.config(name, server)
         vim.lsp.enable(name)
       end
+
+      -- LspLog window in new tab
+      vim.api.nvim_create_user_command('LspLog', function() vim.cmd(('tabnew ' .. vim.lsp.log.get_filename())) end, {})
+      -- LspInfo -> checkhealth vim.lsp
+      vim.api.nvim_create_user_command('LspInfo', function() vim.cmd 'silent checkhealth vim.lsp' end, {})
     end,
   },
 }
