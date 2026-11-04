@@ -24,6 +24,12 @@ vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
 -- Enable break indent
 vim.o.breakindent = true
 
+-- Indentation: 2 spaces, no hard tabs
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.softtabstop = 2
+vim.o.expandtab = true
+
 -- Enable undo/redo changes even after closing and reopening a file
 vim.o.undofile = true
 
